@@ -1,0 +1,73 @@
+//
+//  QuizInfoView.swift
+//  Quiz
+//
+//  Created by Lucija Balja on 07/05/2020.
+//  Copyright © 2020 Lucija Balja. All rights reserved.
+//
+
+import UIKit
+
+class QuizView: UIView {
+    var quizTitle = UILabel()
+    var quizImage = UIImageView()
+    var startButton = UIButton(type: .system)
+    
+    init() {
+        super.init(frame: CGRect.zero)
+        setupUI()
+        setupConstraints()
+    }
+    
+    func setImage(imageURL: URL) {
+        guard let imageData = try? Data(contentsOf: imageURL) else { return }
+        let image = UIImage(data: imageData)
+        self.quizImage.image = image
+    }
+    
+    func setupUI() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = UIColor(white: 1, alpha: 0.4)
+        layer.cornerRadius = 20
+        
+        quizTitle.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
+        quizTitle.translatesAutoresizingMaskIntoConstraints = false
+        quizTitle.textColor = .white
+        quizTitle.textAlignment = .center
+        
+        startButton.backgroundColor = .white
+        startButton.setTitle("Start quiz", for: .normal)
+        startButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
+        startButton.tintColor = .systemIndigo
+        startButton.layer.cornerRadius = 20
+        startButton.clipsToBounds = true
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        quizImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(quizTitle)
+        addSubview(startButton)
+        addSubview(quizImage)
+    }
+    
+    func setupConstraints() {
+        quizTitle.topAnchor.constraint(equalTo:self.topAnchor, constant: 40).isActive = true
+        quizTitle.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        quizTitle.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        quizTitle.heightAnchor.constraint(equalToConstant:50).isActive = true
+        
+        quizImage.topAnchor.constraint(equalTo:quizTitle.bottomAnchor, constant: 10).isActive = true
+        quizImage.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        quizImage.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        quizImage.heightAnchor.constraint(equalToConstant:100).isActive = true
+        
+        startButton.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        startButton.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        startButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        startButton.topAnchor.constraint(equalTo:quizImage.bottomAnchor, constant:30).isActive = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
