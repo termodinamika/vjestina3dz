@@ -67,7 +67,7 @@ class LeaderboardViewController: UIViewController {
             if status {
                 DispatchQueue.main.async {
                     self.leaderboardScores = response!
-                    self.leaderboardScores =  Array(self.leaderboardScores[0..<20])
+                    self.leaderboardScores =  self.leaderboardScores.count > 20 ? Array(self.leaderboardScores[0..<20]) : self.leaderboardScores
                     self.tableview.reloadData()
                 }
             } else {

@@ -12,9 +12,9 @@
 		7F036BDC24714481003A1038 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BDB24714481003A1038 /* SettingsViewController.swift */; };
 		7F036BDE2471482A003A1038 /* LeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BDD2471482A003A1038 /* LeaderboardService.swift */; };
 		7F036BE024714878003A1038 /* LeaderboardScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BDF24714878003A1038 /* LeaderboardScore.swift */; };
-		7F036BE224716711003A1038 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BE124716711003A1038 /* LeaderboardView.swift */; };
 		7F036BE42471734A003A1038 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BE32471734A003A1038 /* SearchViewController.swift */; };
 		7F036BE824719E62003A1038 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BE724719E62003A1038 /* LeaderboardCell.swift */; };
+		7F62B51B2473D5800093069A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F62B51A2473D5800093069A /* SettingsView.swift */; };
 		7F6A07B62466AB7800C48162 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A07B52466AB7800C48162 /* ResultData.swift */; };
 		7F6A07B82466C44F00C48162 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A07B72466C44F00C48162 /* ServerResponse.swift */; };
 		7F852597245871EB0004C69F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F852596245871EB0004C69F /* LoginView.swift */; };
@@ -42,9 +42,9 @@
 		7F036BDB24714481003A1038 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7F036BDD2471482A003A1038 /* LeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardService.swift; sourceTree = "<group>"; };
 		7F036BDF24714878003A1038 /* LeaderboardScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardScore.swift; sourceTree = "<group>"; };
-		7F036BE124716711003A1038 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		7F036BE32471734A003A1038 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7F036BE724719E62003A1038 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
+		7F62B51A2473D5800093069A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7F6A07B52466AB7800C48162 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
 		7F6A07B72466C44F00C48162 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		7F852596245871EB0004C69F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -164,8 +164,8 @@
 				7F85259E24596C400004C69F /* QuizTableViewCell.swift */,
 				7F85259F24596C400004C69F /* QuizTableViewCell.xib */,
 				7F9476222464987C00F517BD /* QuizView.swift */,
-				7F036BE124716711003A1038 /* LeaderboardView.swift */,
 				7F036BE724719E62003A1038 /* LeaderboardCell.swift */,
+				7F62B51A2473D5800093069A /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,12 +256,12 @@
 				7F85259924587BE80004C69F /* LoginViewController.swift in Sources */,
 				7F036BE824719E62003A1038 /* LeaderboardCell.swift in Sources */,
 				7F036BE42471734A003A1038 /* SearchViewController.swift in Sources */,
+				7F62B51B2473D5800093069A /* SettingsView.swift in Sources */,
 				7F036BE024714878003A1038 /* LeaderboardScore.swift in Sources */,
 				7F94762524649ABF00F517BD /* QuizViewController.swift in Sources */,
 				7F8525A024596C400004C69F /* QuizTableViewCell.swift in Sources */,
 				7F94BA4824547F4C0093E48C /* SceneDelegate.swift in Sources */,
 				7F6A07B82466C44F00C48162 /* ServerResponse.swift in Sources */,
-				7F036BE224716711003A1038 /* LeaderboardView.swift in Sources */,
 				7F85259D24595FF10004C69F /* QuizListViewController.swift in Sources */,
 				7F6A07B62466AB7800C48162 /* ResultData.swift in Sources */,
 				7F9476232464987C00F517BD /* QuizView.swift in Sources */,

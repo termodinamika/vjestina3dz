@@ -9,22 +9,29 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    var settingsView = SettingsView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupUI()
+        setupConstraints()
     }
     
+    func setupUI() {
+        view.backgroundColor = .systemIndigo
+        settingsView.translatesAutoresizingMaskIntoConstraints = false
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        view.addSubview(settingsView)
     }
-    */
+    
+    func setupConstraints() {
+        settingsView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        settingsView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        settingsView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        settingsView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+
+    }
 
 }
