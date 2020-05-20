@@ -29,7 +29,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func onLoginPressed(username: String, password: String) {
-        let nextViewController = QuizListViewController()
+        let nextViewController = TabBarController()
         nextViewController.modalPresentationStyle = .fullScreen
         
         loginService.loginUser(username: username, password: password, completion: {

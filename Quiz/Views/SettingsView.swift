@@ -20,7 +20,7 @@ class SettingsView: UIView {
         setupUI()
         setupConstraints()
     }
-    
+     
     func setupUI() {
         backgroundColor = .systemIndigo
         

@@ -28,11 +28,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             settingsVc.tabBarItem = UITabBarItem(title: "Settings", image:  UIImage(named: "settings"), tag: 2)
             let tabBarList = [quizVc, leaderboardVc, settingsVc]
             tabBarViewController.viewControllers = tabBarList
+            window?.rootViewController = tabBarViewController
         } else {
             navigationController = UINavigationController(rootViewController: LoginViewController())
+            window?.rootViewController = navigationController
         }
         
-        window?.rootViewController = tabBarViewController
         window?.makeKeyAndVisible()
     }
     
