@@ -8,14 +8,12 @@
 
 import UIKit
 
-class QuizListView: UIView {
-    
+class QuizInfoView: UIView {
     var getQuizButton = UIButton(type: .system)
     var funFactTitle = UILabel()
     var funFactLabel = UILabel()
     var appLabel = UILabel()
     var errorLabel = UILabel()
-    var tableView = UITableView()
     
     init() {
         super.init(frame: CGRect.zero)
@@ -26,55 +24,31 @@ class QuizListView: UIView {
     func setupQuizUI(counter: Int, quiz: Quiz){
         funFactLabel.text = String("There are \(counter) questions with NBA")
     }
+    
+    func setErrorLabel() {
+        errorLabel.isHidden = false
+        errorLabel.text = "Error fetching data!"
+    }
 
     private func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemIndigo
         
-        appLabel.font = UIFont(name: "AvenirNext-Bold", size: 32.0)
-        appLabel.translatesAutoresizingMaskIntoConstraints = false
-        appLabel.text = "PopQuiz"
-        appLabel.textColor = .white
-        appLabel.textAlignment = .center
-        
-        getQuizButton.backgroundColor = .white
-        getQuizButton.setTitle("Get Quiz", for: .normal)
-        getQuizButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        getQuizButton.tintColor = .systemIndigo
-        getQuizButton.layer.cornerRadius = 20
-        getQuizButton.clipsToBounds = true
-        getQuizButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        funFactTitle.font = UIFont(name: "AvenirNext-Bold", size: 25.0)
-        funFactTitle.translatesAutoresizingMaskIntoConstraints = false
-        funFactTitle.text = "💡 Fun Fact"
-        funFactTitle.textColor = .white
-        funFactTitle.textAlignment = .center
-        
-        funFactLabel.font = UIFont(name: "AvenirNext-Regular", size: 20.0)
-        funFactLabel.translatesAutoresizingMaskIntoConstraints = false
+        Setup.setLabel(appLabel, size: 32.0, text: "PopQuiz")
+        Setup.setButton(getQuizButton, title: "Get Quiz")
+        Setup.setLabel(funFactTitle, size: 25.0, text: "💡 Fun Fact")
+        Setup.setLabel(funFactLabel, isBold: false)
+        Setup.setLabel(errorLabel, size: 25.0)
+
         funFactLabel.numberOfLines = 0
         funFactLabel.lineBreakMode = .byWordWrapping
-        funFactLabel.textColor = .white
-        funFactLabel.textAlignment = .center
-
-        errorLabel.font = UIFont(name: "AvenirNext-Bold", size: 25.0)
-        errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.textColor = .white
-        errorLabel.textAlignment = .center
         errorLabel.isHidden = true
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .systemIndigo
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 143.0
-      
+              
         addSubview(appLabel)
         addSubview(getQuizButton)
         addSubview(funFactTitle)
         addSubview(funFactLabel)
         addSubview(errorLabel)
-        addSubview(tableView)
       }
      
      private func setupAutoLayout() {
@@ -102,11 +76,6 @@ class QuizListView: UIView {
           errorLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
           errorLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
           errorLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
-        
-          tableView.topAnchor.constraint(equalTo: funFactLabel.bottomAnchor, constant: 30).isActive = true
-          tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-          tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-          tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
      }
 
     required init?(coder: NSCoder) {

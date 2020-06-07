@@ -30,18 +30,8 @@ class QuizView: UIView {
         backgroundColor = UIColor(white: 1, alpha: 0.4)
         layer.cornerRadius = 20
         
-        quizTitle.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        quizTitle.translatesAutoresizingMaskIntoConstraints = false
-        quizTitle.textColor = .white
-        quizTitle.textAlignment = .center
-        
-        startButton.backgroundColor = .white
-        startButton.setTitle("Start quiz", for: .normal)
-        startButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        startButton.tintColor = .systemIndigo
-        startButton.layer.cornerRadius = 20
-        startButton.clipsToBounds = true
-        startButton.translatesAutoresizingMaskIntoConstraints = false
+        Setup.setLabel(quizTitle)
+        Setup.setButton(startButton, title: "Start quiz")
         
         quizImage.translatesAutoresizingMaskIntoConstraints = false
         

@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 class QuizService {
+
     
     func fetchQuizzes(completion: @escaping ((Bool, QuizResponse?) -> Void)) {
         let urlString = "https://iosquiz.herokuapp.com/api/quizzes"

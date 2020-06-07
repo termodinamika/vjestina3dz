@@ -38,45 +38,18 @@ class LoginView: UIView {
     private func setupUI() {
         backgroundColor = .systemIndigo
         
-        appLabel.font = UIFont(name: "AvenirNext-Bold", size: 32.0)
-        appLabel.translatesAutoresizingMaskIntoConstraints = false
-        appLabel.text = "Pop Quiz"
-        appLabel.textColor = .white
-        appLabel.textAlignment = .center
-        
-        usernameTextField.placeholder = "Enter username"
-        usernameTextField.font = UIFont(name: "AvenirNext-Regular", size: 17.0)
-        usernameTextField.textColor = UIColor.darkGray
-        usernameTextField.alpha = 0.8
-        usernameTextField.minimumFontSize = 17.0
-        usernameTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
+        Setup.setLabel(appLabel, size: 32.0, text: "Pop Quiz")
+        Setup.setTextField(usernameTextField, size: 17.0, isBold: false, placeholder: "Enter username" )
         usernameTextField.text = "36495264"
-        
-        passwordTextField.placeholder = "Enter password"
-        passwordTextField.font = UIFont(name: "AvenirNext-Regular", size: 17.0)
-        passwordTextField.textColor = UIColor.darkGray
-        passwordTextField.alpha = 0.8
-        passwordTextField.minimumFontSize = 17.0
-        passwordTextField.borderStyle = UITextField.BorderStyle.roundedRect
+
+        Setup.setTextField(passwordTextField, size: 17.0, isBold: false, placeholder: "Enter password")
         passwordTextField.isSecureTextEntry = true
         passwordTextField.text =  "36495264"
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
 
-        loginButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = .white
-        loginButton.alpha = 0.9
-        loginButton.tintColor = .systemIndigo
-        loginButton.layer.cornerRadius = 20
-        loginButton.clipsToBounds = true
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        Setup.setButton(loginButton, title: "Login")
+        Setup.setLabel(errorLabel)
         errorLabel.backgroundColor = .white
-        errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.textColor = .systemRed
-        errorLabel.alpha = 0.8
-        errorLabel.textAlignment = .center
         errorLabel.isHidden = true
         
         addSubview(appLabel)

@@ -24,26 +24,13 @@ class SettingsView: UIView {
     func setupUI() {
         backgroundColor = .systemIndigo
         
-        usernameTitle.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        usernameTitle.translatesAutoresizingMaskIntoConstraints = false
-        usernameTitle.textColor = .white
+        Setup.setLabel(usernameTitle, text: "USERNAME")
+        Setup.setLabel(usernameLabel, text: "Lucija")
+        Setup.setButton(logoutButton, isBold: false, title: "Log out")
+
         usernameTitle.textAlignment = .left
-        usernameTitle.text = "USERNAME"
-        
-        usernameLabel.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.textColor = .white
-        usernameLabel.text = "Lucija"
         usernameLabel.textAlignment = .left
-        
-        logoutButton.setTitle("Log out", for: .normal)
-        logoutButton.titleLabel?.font = UIFont(name: "AvenirNext", size: 20.0)
-        logoutButton.backgroundColor = .white
-        logoutButton.alpha = 0.9
         logoutButton.tintColor = .systemRed
-        logoutButton.layer.cornerRadius = 20
-        logoutButton.clipsToBounds = true
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(usernameTitle)
         addSubview(usernameLabel)

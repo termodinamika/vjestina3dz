@@ -69,46 +69,27 @@ class QuestionView: UIView {
     
     private func initView() {
         backgroundColor = .systemIndigo
+    
+        Setup.setLabel(questionLabel, text: question.question)
+        Setup.setAnswerButtonView(answer1)
+        Setup.setAnswerButtonView(answer2)
+        Setup.setAnswerButtonView(answer3)
+        Setup.setAnswerButtonView(answer4)
         
-        questionLabel.backgroundColor = .gray
-        questionLabel.translatesAutoresizingMaskIntoConstraints = false
-        questionLabel.textColor = .white
-        questionLabel.textAlignment = .center
         questionLabel.isHidden = false
         questionLabel.numberOfLines = 0
         questionLabel.lineBreakMode = .byWordWrapping
-        questionLabel.text = question.question
         
-        answer1.backgroundColor = .systemIndigo
         answer1.setTitle(question.answers[0], for: .normal)
-        answer1.tintColor = .white
-        answer1.layer.cornerRadius = 5
-        answer1.clipsToBounds = true
-        answer1.translatesAutoresizingMaskIntoConstraints = false
         answer1.tag = 0
         
-        answer2.backgroundColor = .systemIndigo
         answer2.setTitle(question.answers[1], for: .normal)
-        answer2.tintColor = .white
-        answer2.layer.cornerRadius = 5
-        answer2.clipsToBounds = true
-        answer2.translatesAutoresizingMaskIntoConstraints = false
         answer2.tag = 1
         
-        answer3.backgroundColor = .systemIndigo
         answer3.setTitle(question.answers[2], for: .normal)
-        answer3.tintColor = .white
-        answer3.layer.cornerRadius = 5
-        answer3.clipsToBounds = true
-        answer3.translatesAutoresizingMaskIntoConstraints = false
         answer3.tag = 2
         
-        answer4.backgroundColor = .systemIndigo
         answer4.setTitle(question.answers[3], for: .normal)
-        answer4.tintColor = .white
-        answer4.layer.cornerRadius = 5
-        answer4.clipsToBounds = true
-        answer4.translatesAutoresizingMaskIntoConstraints = false
         answer4.tag = 3
         
         addSubview(questionLabel)

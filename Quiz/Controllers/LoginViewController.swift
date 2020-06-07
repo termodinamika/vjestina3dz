@@ -35,7 +35,7 @@ class LoginViewController: UIViewController, LoginDelegate {
         loginService.loginUser(username: username, password: password, completion: {
             (status, loginResponse) in
             DispatchQueue.main.async {
-                if status == true {
+                if status {
                     UserDefaults.standard.set(loginResponse?.token, forKey: "userToken")
                     UserDefaults.standard.set(loginResponse?.user_id, forKey: "userID")
                     self.navigationController?.pushViewController(nextViewController, animated: true)

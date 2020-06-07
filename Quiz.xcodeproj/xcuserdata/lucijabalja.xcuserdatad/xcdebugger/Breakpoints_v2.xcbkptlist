@@ -311,10 +311,10 @@
             filePath = "Quiz/Controllers/QuizListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "QuizListViewController"
-            landmarkType = "3">
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "dohvatiButtonClicked(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
