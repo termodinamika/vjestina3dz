@@ -27,7 +27,7 @@ class QuizView: UIView {
     
     func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = UIColor(white: 1, alpha: 0.4)
+        backgroundColor = .lightText
         layer.cornerRadius = 20
         
         Setup.setLabel(quizTitle)

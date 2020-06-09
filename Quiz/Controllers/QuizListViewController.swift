@@ -20,7 +20,8 @@ class QuizListViewController: UIViewController {
         }
     }
     var tableViewController: QuizTableView!
-    var tableView = UITableView()
+    var quizTableView = UITableView()
+    let reachability = try! Reachability()
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -29,30 +30,53 @@ class QuizListViewController: UIViewController {
     override func loadView() {
         super.loadView()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
         setupUI()
-        setupEvents()
-        setupTableConstraints()
+        setupConstraints()
+        quizTableView.delegate = self
+        
+        quizInfoView.getQuizButton.addTarget(self, action: #selector(getQuizClicked), for: .touchUpInside)
     }
     
-    func initTableView() {
-        tableViewController = QuizTableView(tableView, categorizedQuizzes)
-    }
-    
-    func fetchData(){
-        dataService.loadQuizzes { (quizData) in
-            guard let quizData = quizData else {
-                self.fetchFromApi()
+    @objc func getQuizClicked(_ sender: UIButton) {
+        checkReachability()
+        DispatchQueue.main.async {
+            if self.quizzes.count == 0 {
+                self.quizInfoView.errorLabel.isHidden = false
                 return
             }
-            DispatchQueue.main.async {
-                self.quizzes.append(contentsOf: self.dataService.convertQuizData(quizData))
-                self.quizzes = self.quizzes.uniqueElements()
-                self.categorizedQuizzes = Utils.categorySorting(self.quizzes)
-                self.tableView.reloadData()
-            }
+        var counter = 0
+        for quiz in self.quizzes {
+            let nbaArray = quiz.questions.filter({
+                (value: Question) -> Bool in
+                return value.question.contains("NBA")
+            })
+            counter += nbaArray.count
+            self.quizInfoView.funFactLabel.text = "There are \(counter) questions containing word NBA"
         }
-        //fetchFromApi()
+        }
+    }
+    
+    func checkReachability() {
+        reachability.whenReachable = { reachability in
+            print("it is reachable")
+            self.loadData()
+            self.fetchFromApi()
+        }
+        reachability.whenUnreachable = { _ in
+            print("Not reachable")
+            self.loadData()
+        }
+        print(reachability.connection.description)
+    }
+    
+    func loadData(){
+        dataService.loadQuizzes { (quizData) in
+            guard let quizData = quizData else { return }
+            self.quizzes.append(contentsOf: self.dataService.convertQuizData(quizData))
+            self.quizzes = self.quizzes.uniqueElements()
+            
+            DispatchQueue.main.async { self.quizTableView.reloadData() }
+        }
     }
     
     func fetchFromApi(){
@@ -60,10 +84,8 @@ class QuizListViewController: UIViewController {
             (status, quizzes) in
             DispatchQueue.main.async {
                 if let quizzes = quizzes {
-                    self.quizzes = quizzes.quizzes
-                    self.saveQuizzesToCoreData()
-                    self.categorizedQuizzes = Utils.categorySorting(self.quizzes)
-                    self.tableView.reloadData()
+                    self.saveNewQuizzes(quizzes.quizzes)
+                    self.quizTableView.reloadData()
                 } else if !status {
                     self.quizInfoView.setErrorLabel()
                 }
@@ -71,53 +93,58 @@ class QuizListViewController: UIViewController {
         }
     }
     
-    func saveQuizzesToCoreData() {
-        for quiz in quizzes {
+    func saveNewQuizzes(_ quizArray: [Quiz]) {
+        let newQuizzes = quizzes.difference(from: quizArray)
+        for quiz in newQuizzes {
             dataService.prepareData(quiz: quiz)
         }
+        quizzes.append(contentsOf: newQuizzes)
+        categorizedQuizzes = Utils.categorySorting(quizzes)
     }
     
-    func setupEvents() {
-        quizInfoView.getQuizButton.addTarget(self, action: #selector(dohvatiButtonClicked), for: .touchUpInside)
-    }
-    
-    @objc func dohvatiButtonClicked(_ sender: UIButton) {
-        fetchData()
-        DispatchQueue.main.async {
-            if self.quizzes.count == 0 {
-                self.quizInfoView.errorLabel.isHidden = false
-                return
-            }
-            var counter = 0
-            for quiz in self.quizzes {
-                let nbaArray = quiz.questions.filter({
-                    (value: Question) -> Bool in
-                    return value.question.contains("NBA")
-                })
-                counter += nbaArray.count
-            }
-            self.quizInfoView.funFactLabel.text = "There are \(counter) questions containing word NBA"
-        }
-        
+    func initTableView() {
+        tableViewController = QuizTableView(quizTableView, categorizedQuizzes)
+        quizTableView.isHidden = false        
     }
     
     private func setupUI() {
+        view.backgroundColor = .systemIndigo
         view.addSubview(quizInfoView)
         quizInfoView.translatesAutoresizingMaskIntoConstraints = false
         
-        Setup.setTableView(tableView)
-        view.addSubview(tableView)
+        quizTableView.isHidden = true
+        Setup.setTableView(quizTableView)
+        view.addSubview(quizTableView)
     }
     
-    private func setupTableConstraints() {
+    private func setupConstraints() {
         quizInfoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         quizInfoView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         quizInfoView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         quizInfoView.heightAnchor.constraint(equalToConstant: view.frame.height/3).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: quizInfoView.bottomAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        quizTableView.topAnchor.constraint(equalTo: quizInfoView.bottomAnchor).isActive = true
+        quizTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        quizTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        quizTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+}
+
+extension QuizListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionLabel = UILabel()
+        sectionLabel.textColor = Global.sectionColors[section]
+        
+        sectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        sectionLabel.text = Global.categorySections[section].rawValue
+        return sectionLabel
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedQuiz = categorizedQuizzes[Global.categorySections[indexPath.section]]?[indexPath.row] else { return }
+        let nextViewController = QuizViewController()
+        nextViewController.setQuiz(with: selectedQuiz)
+        nextViewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
 }

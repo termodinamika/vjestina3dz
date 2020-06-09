@@ -19,7 +19,7 @@ class LeaderboardViewController: UIViewController {
     }()
     
     let errorLabel = UILabel()
-    let leaderboardService = LeaderboardService()
+    let quizService = QuizService()
     var quizId: Int!
     var leaderboardScores: [LeaderboardScore] = []
     
@@ -63,7 +63,7 @@ class LeaderboardViewController: UIViewController {
     }
     
     func fetchLeaderboardData() {
-        leaderboardService.getBestScores(id: quizId) { (status, response) in
+        quizService.getBestScores(id: quizId) { (status, response) in
             if status {
                 DispatchQueue.main.async {
                     self.leaderboardScores = response!
@@ -118,7 +118,7 @@ extension LeaderboardViewController: UITableViewDataSource {
         let data = leaderboardScores[indexPath.row]
         cell.positionLabel.text = "\(indexPath.row + 1)."
         cell.usernameLabel.text = data.username
-        cell.pointsLabel.text = String(data.score.split(separator: ".")[0])
+        cell.pointsLabel.text = String(data.score?.split(separator: ".")[0] ?? "0")
         return cell
     }
 }

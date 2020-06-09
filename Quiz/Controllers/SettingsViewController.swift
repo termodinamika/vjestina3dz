@@ -14,7 +14,6 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         setupConstraints()
         setupEvents()
@@ -27,7 +26,7 @@ class SettingsViewController: UIViewController {
     @objc func onLogoutPressed() {
         UserDefaults.standard.removeObject(forKey: "userID")
         UserDefaults.standard.removeObject(forKey: "token")
-        self.navigationController?.popToRootViewController(animated: true)
+        tabBarController?.selectedIndex = 0
     }
     
     func setupUI() {

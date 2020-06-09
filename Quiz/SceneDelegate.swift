@@ -9,16 +9,17 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
     var window: UIWindow?
     var navigationController = UINavigationController()
     var tabBarViewController = UITabBarController()
-    
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let winScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: winScene)
+        //ako je korisnik logiran
         if UserDefaults.standard.string(forKey: "userID") != nil {
             navigationController = UINavigationController(rootViewController: QuizListViewController())
+
             let quizVc = navigationController
             let leaderboardVc = SearchViewController()
             let settingsVc = SettingsViewController()
@@ -33,7 +34,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             navigationController = UINavigationController(rootViewController: LoginViewController())
             window?.rootViewController = navigationController
         }
-        
         window?.makeKeyAndVisible()
     }
     

@@ -38,10 +38,11 @@ class LoginViewController: UIViewController, LoginDelegate {
                 if status {
                     UserDefaults.standard.set(loginResponse?.token, forKey: "userToken")
                     UserDefaults.standard.set(loginResponse?.user_id, forKey: "userID")
+                    UserDefaults.standard.set(username, forKey: "username")
+
                     self.navigationController?.pushViewController(nextViewController, animated: true)
                 } else {
-                    self.loginView.errorLabel.text = "Error trying to log in. Try again."
-                    self.loginView.errorLabel.isHidden = false
+                    self.loginView.setErrorLabel(text: "Error trying to log in. Try again.")
                 }
             }
         })

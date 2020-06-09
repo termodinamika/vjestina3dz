@@ -9,23 +9,22 @@
 import UIKit
 
 class SettingsView: UIView {
-
     var usernameTitle = UILabel()
     var usernameLabel = UILabel()
     var logoutButton = UIButton(type: .system)
     
     init() {
         super.init(frame: .zero)
-        
         setupUI()
         setupConstraints()
     }
      
     func setupUI() {
         backgroundColor = .systemIndigo
-        
+        let username = UserDefaults.standard.string(forKey: "username") ?? "default-username"
+
         Setup.setLabel(usernameTitle, text: "USERNAME")
-        Setup.setLabel(usernameLabel, text: "Lucija")
+        Setup.setLabel(usernameLabel, text: username)
         Setup.setButton(logoutButton, isBold: false, title: "Log out")
 
         usernameTitle.textAlignment = .left

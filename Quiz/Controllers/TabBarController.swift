@@ -12,16 +12,14 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let firstVc = QuizListViewController()
-        let secondVc = LeaderboardViewController()
-        let thirdVc = SettingsViewController()
+        let navigation = UINavigationController(rootViewController: QuizListViewController())
+        let leaderboardVc = SearchViewController()
+        let settingsVc = SettingsViewController()
         
-        firstVc.tabBarItem = UITabBarItem(title: "Quiz", image:  UIImage(systemName: "stopwatch"), tag: 0)
-        secondVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-        thirdVc.tabBarItem = UITabBarItem(title: "Settings", image:  UIImage(named: "settings"), tag: 2)
-        let tabBarList = [firstVc, secondVc, thirdVc]
-        viewControllers = tabBarList
-
+        navigation.tabBarItem = UITabBarItem(title: "Quiz", image:  UIImage(systemName: "stopwatch"), tag: 0)
+        leaderboardVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        settingsVc.tabBarItem = UITabBarItem(title: "Settings", image:  UIImage(named: "settings"), tag: 2)
+        let tabBarList = [navigation, leaderboardVc, settingsVc]
+        self.viewControllers = tabBarList
     }
-    
 }

@@ -311,10 +311,10 @@
             filePath = "Quiz/Controllers/QuizListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "dohvatiButtonClicked(_:)"
-            landmarkType = "7">
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "QuizListViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -327,10 +327,10 @@
             filePath = "Quiz/Controllers/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "setupConstraints()"
-            landmarkType = "7">
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "LoginViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

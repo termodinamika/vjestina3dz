@@ -9,7 +9,6 @@
 import UIKit
 
 class SearchView: UIView {
-    
     var searchTextField = UITextField()
     var searchButton = UIButton(type: .system)
     var searchDelegate: SearchDelegate?
@@ -26,14 +25,13 @@ class SearchView: UIView {
     }
     
     @objc func onSearchPressed(_ sender: UIButton) {
-        if let searchWord = searchTextField.text {
-            searchDelegate?.onSearchPressed(searchWord: searchWord)
-        }
+        guard let searchWord = searchTextField.text else { return }
+        searchDelegate?.onSearchPressed(searchWord: searchWord)
     }
     
     func setupUI() {
-        Setup.setTextField(searchTextField, placeholder: "Type here")
-        
+        Setup.setTextField(searchTextField)
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "Type here", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         Setup.setButton(searchButton, size: 15.0,  title: "Search")
         searchButton.backgroundColor = .systemIndigo
         searchButton.tintColor = .white

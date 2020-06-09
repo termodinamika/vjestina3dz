@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class LoginView: UIView {
-    
     var appLabel = UILabel()
     var usernameTextField = UITextField()
     var passwordTextField = UITextField()
@@ -28,12 +27,21 @@ class LoginView: UIView {
     func setupEvents() {
         loginButton.addTarget(self, action: #selector(onLoginPressed), for: .touchUpInside)
     }
-    
+
     @objc func onLoginPressed() {
-        if let username = usernameTextField.text, let password = passwordTextField.text {
-            self.loginDelegate?.onLoginPressed(username: username, password: password)
-        } 
+        guard let username = usernameTextField.text, let password = passwordTextField.text else {
+            setErrorLabel(text: "Enter valid username and password!")
+            return
+        }
+        errorLabel.isHidden = true
+        loginDelegate?.onLoginPressed(username: username, password: password)
     }
+    
+    func setErrorLabel(text: String) {
+        errorLabel.text = text
+        errorLabel.isHidden = false
+    }
+    
     
     private func setupUI() {
         backgroundColor = .systemIndigo
@@ -60,7 +68,6 @@ class LoginView: UIView {
     }
     
     private func setupAutoContstraints() {
-        
         appLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
         appLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
         appLabel.heightAnchor.constraint(equalToConstant:50).isActive = true

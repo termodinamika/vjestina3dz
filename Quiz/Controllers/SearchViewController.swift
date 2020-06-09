@@ -13,7 +13,6 @@ protocol SearchDelegate {
 }
 
 class SearchViewController: UIViewController, SearchDelegate {
-    
     let searchView = SearchView()
     let dataService = CoreDataService()
     var quizzes: [Quiz] = []
@@ -23,14 +22,21 @@ class SearchViewController: UIViewController, SearchDelegate {
         }
     }
     var tableViewController: QuizTableView!
-    var tableView = UITableView()
-    
+    var quizTableView = UITableView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
         searchView.searchDelegate = self
+        quizTableView.delegate = self
     }
+    
+    func initTableView() {
+        tableViewController = QuizTableView(quizTableView, categorizedQuizzes)
+        quizTableView.isHidden = false
+     }
+     
     
     func onSearchPressed(searchWord: String) {
         dataService.loadQuizzes(with: searchWord, completion: { (quizData) in
@@ -43,18 +49,15 @@ class SearchViewController: UIViewController, SearchDelegate {
         })
     }
     
-    func initTableView() {
-        tableViewController = QuizTableView(tableView, categorizedQuizzes)
-        tableView.isHidden = false
-    }
-    
     func setupUI() {
         view.backgroundColor = .systemIndigo
         searchView.translatesAutoresizingMaskIntoConstraints = false
-        Setup.setTableView(tableView)
+        
+        Setup.setTableView(quizTableView)
+        quizTableView.isHidden = true
         
         view.addSubview(searchView)
-        view.addSubview(tableView)
+        view.addSubview(quizTableView)
     }
     
     func setupConstraints() {
@@ -63,10 +66,28 @@ class SearchViewController: UIViewController, SearchDelegate {
         searchView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         searchView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 30).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        quizTableView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 30).isActive = true
+        quizTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        quizTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        quizTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionLabel = UILabel()
+        sectionLabel.textColor = Global.sectionColors[section]
+        
+        sectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        sectionLabel.text = Global.categorySections[section].rawValue
+        return sectionLabel
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedQuiz = categorizedQuizzes[Global.categorySections[indexPath.section]]?[indexPath.row] else { return }
+        let nextViewController = QuizViewController()
+        nextViewController.setQuiz(with: selectedQuiz)
+        nextViewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+       }
 }

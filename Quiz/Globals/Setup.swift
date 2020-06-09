@@ -18,23 +18,22 @@ class Setup {
     }
     
     static func setAnswerButtonView(_ answer: UIButton) {
-        answer.backgroundColor = .systemIndigo
+        answer.backgroundColor = .lightText
         answer.tintColor = .white
-        answer.layer.cornerRadius = 5
+        answer.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        answer.layer.cornerRadius = 20
         answer.clipsToBounds = true
         answer.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    static func setTextField(_ textField: UITextField, size: CGFloat = 20.0, isBold: Bool = true, backgroundColor: UIColor = .white, placeholder: String) {
+    static func setTextField(_ textField: UITextField, size: CGFloat = 20.0, isBold: Bool = true, placeholder: String = "") {
         textField.font = isBold ? .boldSystemFont(ofSize: size) : .systemFont(ofSize: size)
-        textField.alpha = 0.5
-        textField.textColor = .darkGray
+        textField.textColor = .white
         textField.textAlignment = .center
         textField.layer.borderColor = UIColor.white.cgColor
-        textField.backgroundColor = backgroundColor
+        textField.backgroundColor = .lightText
         textField.layer.cornerRadius = 20
         textField.placeholder = placeholder
-        
         textField.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -47,7 +46,6 @@ class Setup {
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
     static func setLabel(_ label: UILabel, size: CGFloat = 20.0, isBold: Bool = true, text: String = "") {
@@ -56,6 +54,5 @@ class Setup {
         label.textColor = .white
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        
     }
 }

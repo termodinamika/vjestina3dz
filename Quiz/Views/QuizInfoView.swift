@@ -29,7 +29,7 @@ class QuizInfoView: UIView {
         errorLabel.isHidden = false
         errorLabel.text = "Error fetching data!"
     }
-
+    
     private func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemIndigo
@@ -39,45 +39,45 @@ class QuizInfoView: UIView {
         Setup.setLabel(funFactTitle, size: 25.0, text: "💡 Fun Fact")
         Setup.setLabel(funFactLabel, isBold: false)
         Setup.setLabel(errorLabel, size: 25.0)
-
+        
         funFactLabel.numberOfLines = 0
         funFactLabel.lineBreakMode = .byWordWrapping
         errorLabel.isHidden = true
-              
+        
         addSubview(appLabel)
         addSubview(getQuizButton)
         addSubview(funFactTitle)
         addSubview(funFactLabel)
         addSubview(errorLabel)
-      }
-     
-     private func setupAutoLayout() {
-          appLabel.topAnchor.constraint(equalTo:self.topAnchor, constant: 40).isActive = true
-          appLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-          appLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
-          appLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
+    }
+    
+    private func setupAutoLayout() {
+        appLabel.topAnchor.constraint(equalTo:self.topAnchor, constant: 40).isActive = true
+        appLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        appLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        appLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
         
-          getQuizButton.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-          getQuizButton.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
-          getQuizButton.heightAnchor.constraint(equalToConstant:50).isActive = true
-          getQuizButton.topAnchor.constraint(equalTo:appLabel.bottomAnchor, constant:10).isActive = true
+        getQuizButton.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        getQuizButton.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        getQuizButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        getQuizButton.topAnchor.constraint(equalTo:appLabel.bottomAnchor, constant:10).isActive = true
         
-          funFactTitle.topAnchor.constraint(equalTo:getQuizButton.bottomAnchor, constant: 20).isActive = true
-          funFactTitle.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-          funFactTitle.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
-          funFactTitle.heightAnchor.constraint(equalToConstant:30).isActive = true
+        funFactTitle.topAnchor.constraint(equalTo:getQuizButton.bottomAnchor, constant: 20).isActive = true
+        funFactTitle.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        funFactTitle.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        funFactTitle.heightAnchor.constraint(equalToConstant:30).isActive = true
         
-          funFactLabel.topAnchor.constraint(equalTo:funFactTitle.bottomAnchor, constant: 20).isActive = true
-          funFactLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-          funFactLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
-          funFactLabel.heightAnchor.constraint(equalToConstant:60).isActive = true
-
-          errorLabel.topAnchor.constraint(equalTo:funFactLabel.bottomAnchor, constant: 20).isActive = true
-          errorLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-          errorLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
-          errorLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
-     }
-
+        funFactLabel.topAnchor.constraint(equalTo:funFactTitle.bottomAnchor, constant: 20).isActive = true
+        funFactLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        funFactLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        funFactLabel.heightAnchor.constraint(equalToConstant:60).isActive = true
+        
+        errorLabel.topAnchor.constraint(equalTo:funFactLabel.bottomAnchor, constant: 20).isActive = true
+        errorLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
+        errorLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        errorLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

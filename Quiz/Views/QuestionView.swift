@@ -14,23 +14,34 @@ class QuestionView: UIView {
     var answer2 = UIButton(type: .system)
     var answer3 = UIButton(type: .system)
     var answer4 = UIButton(type: .system)
-    var question: Question!
     var delegate: AnswerCheckerDelegate!
+    var question: Question?{
+        didSet{
+            initView()
+            setupConstraints()
+        }
+    }
     
     init() {
         super.init(frame: CGRect.zero)
         setupEvents()
     }
     
-    func setupEvents() {
-         answer1.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
-         answer2.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
-         answer3.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
-         answer4.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
-     }
+    func setupQuestionUI(with question: Question) {
+        self.question = question
+    }
+    
+    private func setupEvents() {
+        answer1.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
+        answer2.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
+        answer3.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
+        answer4.addTarget(self, action: #selector(answerClicked), for: .touchUpInside)
+    }
     
     @objc func answerClicked(_ sender: UIButton) {
         var isCorrect = false
+        guard let question = question else { return }
+        
         if question.correct_answer == sender.tag {
             isCorrect = true
         }
@@ -53,12 +64,6 @@ class QuestionView: UIView {
         self.delegate?.checkAnswer(isCorrect)
     }
     
-    func setupQuestionUI(with question: Question) {
-        self.question = question
-        initView()
-        setupConstraints()
-    }
-
     func fireTimer(button: UIButton) {
         DispatchQueue.main.async {
             _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
@@ -69,7 +74,8 @@ class QuestionView: UIView {
     
     private func initView() {
         backgroundColor = .systemIndigo
-    
+        guard let question = question else { return }
+        
         Setup.setLabel(questionLabel, text: question.question)
         Setup.setAnswerButtonView(answer1)
         Setup.setAnswerButtonView(answer2)
@@ -103,7 +109,7 @@ class QuestionView: UIView {
         questionLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
         questionLabel.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
         questionLabel.heightAnchor.constraint(equalToConstant:100).isActive = true
-        questionLabel.topAnchor.constraint(equalTo:self.topAnchor, constant:10).isActive = true
+        questionLabel.topAnchor.constraint(equalTo:self.topAnchor, constant:40).isActive = true
         
         answer1.topAnchor.constraint(equalTo:questionLabel.bottomAnchor, constant: 20).isActive = true
         answer1.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true

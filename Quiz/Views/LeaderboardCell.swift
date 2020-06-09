@@ -9,38 +9,10 @@
 import UIKit
 
 class LeaderboardCell: UITableViewCell {
-    
-    let cellView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemIndigo
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let positionLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let usernameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont(name: "AvenirNext", size: 18.0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let pointsLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.textAlignment = .right
-        label.font = UIFont(name: "AvenirNext-Bold", size: 26.0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let cellView = UIView()
+    let positionLabel = UILabel()
+    let usernameLabel = UILabel()
+    let pointsLabel = UILabel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +26,6 @@ class LeaderboardCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupConstraints()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,6 +33,13 @@ class LeaderboardCell: UITableViewCell {
     }
     
     func setupUI() {
+        cellView.backgroundColor = .systemIndigo
+        cellView.translatesAutoresizingMaskIntoConstraints = false
+        Setup.setLabel(positionLabel)
+        Setup.setLabel(usernameLabel, size: 18.0, isBold: false)
+        Setup.setLabel(pointsLabel, size: 26.0)
+        pointsLabel.textAlignment = .right
+        
         addSubview(cellView)
         cellView.addSubview(positionLabel)
         cellView.addSubview(usernameLabel)
@@ -74,7 +52,7 @@ class LeaderboardCell: UITableViewCell {
         cellView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         cellView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-
+        
         positionLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         positionLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         positionLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
@@ -89,6 +67,5 @@ class LeaderboardCell: UITableViewCell {
         pointsLabel.widthAnchor.constraint(equalToConstant: 70).isActive = true
         pointsLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
         pointsLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30).isActive = true
-        
     }
 }

@@ -48,5 +48,4 @@ class QuizTableViewCell: UITableViewCell {
             level3Image.tintColor = .systemGray
         }
     }
-    
 }

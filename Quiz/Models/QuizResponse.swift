@@ -12,7 +12,7 @@ struct QuizResponse: Decodable {
     var quizzes: [Quiz]
 }
 
-class Quiz: Decodable, Equatable {
+class Quiz: Decodable, Equatable, Hashable {
     var category: Category
     var id: Int
     var title: String
@@ -34,6 +34,11 @@ class Quiz: Decodable, Equatable {
     static func == (lhs: Quiz, rhs: Quiz) -> Bool {
         return lhs.id == rhs.id
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(description)
+    }
 }
 
 class Question: Decodable {
@@ -50,7 +55,6 @@ class Question: Decodable {
     }
 }
 
-
 enum Category: String, Decodable, CaseIterable {
     case SPORTS, SCIENCE
 }
@@ -64,7 +68,14 @@ extension Array where Element: Equatable {
         out.append(element)
       }
     }
-
     return out
   }
+}
+
+extension Array where Element: Hashable {
+    func difference(from other: [Element]) -> [Element] {
+        let thisSet = Set(self)
+        let otherSet = Set(other)
+        return Array(thisSet.symmetricDifference(otherSet))
+    }
 }

@@ -10,5 +10,5 @@ import Foundation
 
 struct LeaderboardScore: Decodable {
     var username: String
-    var score: String
+    var score: String?
 }
