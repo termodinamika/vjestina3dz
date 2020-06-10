@@ -64,7 +64,7 @@ class SearchViewController: UIViewController, SearchDelegate {
     }
     
     func setupConstraints() {
-        searchView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        searchView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
         searchView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         searchView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         searchView.heightAnchor.constraint(equalToConstant: 70).isActive = true

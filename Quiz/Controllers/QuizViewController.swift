@@ -18,6 +18,9 @@ class QuizViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationBar.backItem?.title = ""
+        self.navigationController?.navigationBar.topItem?.title = "PopQuiz"
+        self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
@@ -61,12 +64,10 @@ class QuizViewController: UIViewController {
         quizView.quizTitle.text = quiz.title
         quizView.quizImage.image = Utils.setImage(imageURL: quiz.image)
         
-        leaderboardButton.setTitle("Leaderboard", for: .normal)
-        leaderboardButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
+        Setup.setButton(leaderboardButton, title: "Leaderboard")
         leaderboardButton.tintColor = .white
-        leaderboardButton.clipsToBounds = true
+        leaderboardButton.backgroundColor = .systemIndigo
         
-        leaderboardButton.translatesAutoresizingMaskIntoConstraints = false
         quizView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(leaderboardButton)

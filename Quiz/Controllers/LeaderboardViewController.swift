@@ -9,69 +9,65 @@
 import UIKit
 
 class LeaderboardViewController: UIViewController {
-    let tableview = UITableView()
-    let errorLabel = UILabel()
+    let leaderboardView = LeaderboardView()
     let quizService = QuizService()
     var quizId: Int!
     var leaderboardScores: [LeaderboardScore] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableview.delegate = self
-        tableview.dataSource = self
+        leaderboardView.tableview.delegate = self
+        leaderboardView.tableview.dataSource = self
         setupUI()
         setupConstraints()
+        setupEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationItem.title = "Leaderboard"
-        
-        self.navigationItem.setHidesBackButton(true, animated: true);
-        self.navigationController?.navigationBar.isTranslucent = false
-        
-        let barButtonItemRight = UIBarButtonItem(title:"X", style: .plain, target: self, action: #selector(quitLeaderboard))
-        self.navigationItem.rightBarButtonItem = barButtonItemRight
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
-    @objc func quitLeaderboard() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
     func setQuizId(id: Int) {
         self.quizId = id
         fetchLeaderboardData()
+    }
+    
+    func setupEvents() {
+        leaderboardView.dismissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
+    }
+    
+    @objc func dismissPressed() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func fetchLeaderboardData() {
         quizService.getBestScores(id: quizId) { (response) in
             DispatchQueue.main.async {
                 guard let response = response else {
-                    self.errorLabel.text = "Could not fetch leaderboard scores"
+                    self.leaderboardView.setErrorLabel()
                     return
                 }
-                self.leaderboardScores = response.count > 20 ? Array(response[0..<20]) : response
-                self.tableview.reloadData()
+                for leaderboardScore in response {
+                    if self.leaderboardScores.count < 20 && leaderboardScore.score != nil {
+                        self.leaderboardScores.append(leaderboardScore)
+                    }
+                }
+                self.leaderboardView.tableview.reloadData()
             }
         }
     }
     
     private func setupUI() {
         view.backgroundColor = .systemIndigo
-        
-        tableview.backgroundColor = .systemIndigo
-        tableview.separatorColor = .white
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        tableview.register(LeaderboardCell.self, forCellReuseIdentifier: "cellId")
-        
-        view.addSubview(tableview)
+        leaderboardView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(leaderboardView)
     }
     
     private func setupConstraints() {
-        tableview.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20).isActive = true
-        tableview.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        tableview.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        tableview.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        leaderboardView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leaderboardView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        leaderboardView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        leaderboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
     }
 }
 
@@ -83,7 +79,7 @@ extension LeaderboardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let playerLabel = UILabel()
         Setup.setLabel(playerLabel, text: "Player")
-
+        
         let pointsLabel = UILabel()
         Setup.setLabel(pointsLabel, text: "Points")
         
@@ -104,7 +100,7 @@ extension LeaderboardViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! LeaderboardCell
+        let cell = leaderboardView.tableview.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! LeaderboardCell
         let data = leaderboardScores[indexPath.row]
         cell.positionLabel.text = "\(indexPath.row + 1)."
         cell.usernameLabel.text = data.username

@@ -16,6 +16,7 @@
 		7F036BE824719E62003A1038 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F036BE724719E62003A1038 /* LeaderboardCell.swift */; };
 		7F2B883F248E69F100D8BDCC /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B883E248E69F100D8BDCC /* QuestionViewController.swift */; };
 		7F46D6E0248F9D1B00C3218F /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D6DF248F9D1B00C3218F /* DataService.swift */; };
+		7F46D6E22490CE3000C3218F /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46D6E12490CE3000C3218F /* LeaderboardView.swift */; };
 		7F62B51B2473D5800093069A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F62B51A2473D5800093069A /* SettingsView.swift */; };
 		7F6A07B62466AB7800C48162 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A07B52466AB7800C48162 /* ResultData.swift */; };
 		7F6A07B82466C44F00C48162 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A07B72466C44F00C48162 /* ServerResponse.swift */; };
@@ -55,6 +56,7 @@
 		7F036BE724719E62003A1038 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
 		7F2B883E248E69F100D8BDCC /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		7F46D6DF248F9D1B00C3218F /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		7F46D6E12490CE3000C3218F /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		7F62B51A2473D5800093069A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7F6A07B52466AB7800C48162 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
 		7F6A07B72466C44F00C48162 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
@@ -213,15 +215,16 @@
 		7F94BA5D24547F910093E48C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7F85259E24596C400004C69F /* QuizTableViewCell.swift */,
-				7F94BA64245486D60093E48C /* QuestionView.swift */,
-				7F94BA662456FE310093E48C /* QuizInfoView.swift */,
-				7F852596245871EB0004C69F /* LoginView.swift */,
-				7F85259F24596C400004C69F /* QuizTableViewCell.xib */,
-				7F9476222464987C00F517BD /* QuizView.swift */,
 				7F036BE724719E62003A1038 /* LeaderboardCell.swift */,
+				7F46D6E12490CE3000C3218F /* LeaderboardView.swift */,
+				7F852596245871EB0004C69F /* LoginView.swift */,
 				7F62B51A2473D5800093069A /* SettingsView.swift */,
 				7F91A091248B85C7003F8D1F /* SearchView.swift */,
+				7F94BA64245486D60093E48C /* QuestionView.swift */,
+				7F94BA662456FE310093E48C /* QuizInfoView.swift */,
+				7F9476222464987C00F517BD /* QuizView.swift */,
+				7F85259F24596C400004C69F /* QuizTableViewCell.xib */,
+				7F85259E24596C400004C69F /* QuizTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				7F94BA65245486D60093E48C /* QuestionView.swift in Sources */,
 				7F91A094248B8CBB003F8D1F /* Setup.swift in Sources */,
 				7F036BDA24714471003A1038 /* LeaderboardViewController.swift in Sources */,
+				7F46D6E22490CE3000C3218F /* LeaderboardView.swift in Sources */,
 				7F036BDC24714481003A1038 /* SettingsViewController.swift in Sources */,
 				7FC604E6246415AE00C00470 /* LoginResponse.swift in Sources */,
 				7F85259B2458A8560004C69F /* LoginService.swift in Sources */,

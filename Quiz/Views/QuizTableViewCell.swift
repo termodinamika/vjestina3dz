@@ -30,7 +30,6 @@ class QuizTableViewCell: UITableViewCell {
         layer.cornerRadius = 30
         layer.masksToBounds = true
         selectionStyle = .none
-
     }
     
     func setLevelImage(level: Int, color: UIColor) {

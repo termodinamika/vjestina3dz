@@ -27,6 +27,8 @@ class QuizView: UIView {
         Setup.setLabel(quizTitle)
         Setup.setButton(startButton, title: "Start quiz")
         
+        quizImage.layer.masksToBounds = true
+        quizImage.layer.cornerRadius = quizImage.frame.width/4.0
         quizImage.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(quizTitle)
