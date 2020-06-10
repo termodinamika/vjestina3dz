@@ -42,7 +42,7 @@ class QuestionView: UIView {
         var isCorrect = false
         guard let question = question else { return }
         
-        if question.correct_answer == sender.tag {
+        if question.correctAnswer == sender.tag {
             isCorrect = true
         }
         switch sender.tag {

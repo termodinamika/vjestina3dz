@@ -18,6 +18,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true;
     }
     
     override func viewDidLoad() {
@@ -33,13 +34,11 @@ class LoginViewController: UIViewController, LoginDelegate {
         nextViewController.modalPresentationStyle = .fullScreen
         
         loginService.loginUser(username: username, password: password, completion: {
-            (status, loginResponse) in
+            (isSuccessful, loginResponse) in
             DispatchQueue.main.async {
-                if status {
-                    UserDefaults.standard.set(loginResponse?.token, forKey: "userToken")
-                    UserDefaults.standard.set(loginResponse?.user_id, forKey: "userID")
-                    UserDefaults.standard.set(username, forKey: "username")
-
+                if isSuccessful {
+                    guard let token = loginResponse?.token, let userID = loginResponse?.userID else { return }
+                    DataService.saveUserParams(username: username, token: token, userID: userID)
                     self.navigationController?.pushViewController(nextViewController, animated: true)
                 } else {
                     self.loginView.setErrorLabel(text: "Error trying to log in. Try again.")
@@ -50,7 +49,6 @@ class LoginViewController: UIViewController, LoginDelegate {
     
     private func setupUI() {
         view.backgroundColor = .systemGray2
-        
         loginView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginView)
     }

@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 
 class Global {
-    static var categorySections = Category.allCases
-    static var sectionColors: [UIColor] = [.systemYellow, .systemBlue, .systemTeal,  .systemPink]
-
+    static var sectionColors: [UIColor] = [.systemYellow, .systemOrange, .systemTeal,  .systemPink]
+    static var apiURL = "https://iosquiz.herokuapp.com/api"
 }

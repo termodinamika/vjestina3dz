@@ -8,16 +8,24 @@
 
 import Foundation
 
-struct ResultData: Codable {
-    var quiz_id: Int
-    var user_id: Int
+struct ResultData: Decodable, Encodable {
+    var quizID: Int
+    var userID: Int
     var time: Double
-    var no_of_correct: Int
+    var noOfCorrect: Int
     
-    init(quiz_id: Int, user_id: Int, time: Double, no_of_correct: Int) {
-        self.quiz_id = quiz_id
-        self.user_id = user_id
+    init(quizID: Int, userID: Int, time: Double, noOfCorrect: Int) {
+        self.quizID = quizID
+        self.userID = userID
         self.time = time
-        self.no_of_correct = no_of_correct
+        self.noOfCorrect = noOfCorrect
     }
+    
+    enum CodingKeys: String, CodingKey {
+         case quizID = "quiz_id"
+         case userID = "user_id"
+         case time
+         case noOfCorrect = "no_of_correct"
+     }
 }
+

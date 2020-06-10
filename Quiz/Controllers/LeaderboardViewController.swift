@@ -9,15 +9,7 @@
 import UIKit
 
 class LeaderboardViewController: UIViewController {
-    
-    let tableview: UITableView = {
-        let tv = UITableView()
-        tv.backgroundColor = .systemIndigo
-        tv.separatorColor = .white
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
-    }()
-    
+    let tableview = UITableView()
     let errorLabel = UILabel()
     let quizService = QuizService()
     var quizId: Int!
@@ -27,25 +19,14 @@ class LeaderboardViewController: UIViewController {
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
-        setupTableView()
-    }
-    func setupTableView() {
-        view.backgroundColor = .systemIndigo
-        tableview.register(LeaderboardCell.self, forCellReuseIdentifier: "cellId")
-        view.addSubview(tableview)
-        
-        NSLayoutConstraint.activate([
-            tableview.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-            tableview.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            tableview.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            tableview.leftAnchor.constraint(equalTo: self.view.leftAnchor)
-        ])
+        setupUI()
+        setupConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.title = "Leaderboard"
-    
+        
         self.navigationItem.setHidesBackButton(true, animated: true);
         self.navigationController?.navigationBar.isTranslucent = false
         
@@ -63,19 +44,34 @@ class LeaderboardViewController: UIViewController {
     }
     
     func fetchLeaderboardData() {
-        quizService.getBestScores(id: quizId) { (status, response) in
-            if status {
-                DispatchQueue.main.async {
-                    self.leaderboardScores = response!
-                    self.leaderboardScores =  self.leaderboardScores.count > 20 ? Array(self.leaderboardScores[0..<20]) : self.leaderboardScores
-                    self.tableview.reloadData()
+        quizService.getBestScores(id: quizId) { (response) in
+            DispatchQueue.main.async {
+                guard let response = response else {
+                    self.errorLabel.text = "Could not fetch leaderboard scores"
+                    return
                 }
-            } else {
-                DispatchQueue.main.async {
-                    self.errorLabel.text = "error happend"
-                }
+                self.leaderboardScores = response.count > 20 ? Array(response[0..<20]) : response
+                self.tableview.reloadData()
             }
         }
+    }
+    
+    private func setupUI() {
+        view.backgroundColor = .systemIndigo
+        
+        tableview.backgroundColor = .systemIndigo
+        tableview.separatorColor = .white
+        tableview.translatesAutoresizingMaskIntoConstraints = false
+        tableview.register(LeaderboardCell.self, forCellReuseIdentifier: "cellId")
+        
+        view.addSubview(tableview)
+    }
+    
+    private func setupConstraints() {
+        tableview.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20).isActive = true
+        tableview.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        tableview.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        tableview.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
     }
 }
 
@@ -86,26 +82,20 @@ extension LeaderboardViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let playerLabel = UILabel()
-        playerLabel.textColor = .white
-        playerLabel.font = .boldSystemFont(ofSize: 20.0)
-        playerLabel.text = "Player"
-        playerLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let pointsLabel = UILabel()
-        pointsLabel.textColor = .white
-        pointsLabel.font = .boldSystemFont(ofSize: 20.0)
-        pointsLabel.text = "Points"
-        pointsLabel.translatesAutoresizingMaskIntoConstraints = false
+        Setup.setLabel(playerLabel, text: "Player")
 
+        let pointsLabel = UILabel()
+        Setup.setLabel(pointsLabel, text: "Points")
+        
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 30))
         headerView.backgroundColor = .systemIndigo
         headerView.addSubview(playerLabel)
         headerView.addSubview(pointsLabel)
-    
+        
         playerLabel.topAnchor.constraint(equalTo: headerView.topAnchor).isActive = true
         playerLabel.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20).isActive = true
         playerLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-
+        
         pointsLabel.topAnchor.constraint(equalTo: headerView.topAnchor).isActive = true
         pointsLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor).isActive = true
         pointsLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true

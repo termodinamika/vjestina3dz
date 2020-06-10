@@ -36,6 +36,7 @@ class QuizViewController: UIViewController {
         quizStartedAt = Date.timeIntervalSinceReferenceDate
         let questionView = QuestionViewController()
         guard let quiz = quiz else { return }
+        
         questionView.setQuizParams(quiz, quizStartedAt)
         navigationController?.pushViewController(questionView, animated: true)
     }
@@ -43,6 +44,7 @@ class QuizViewController: UIViewController {
     @objc func leaderboardPressed(_ sender: UIButton) {
         let nextViewController = LeaderboardViewController()
         guard let quiz = quiz else { return }
+        
         nextViewController.setQuizId(id: quiz.id)
         nextViewController.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -57,7 +59,7 @@ class QuizViewController: UIViewController {
         guard let quiz = quiz else { return }
         view.backgroundColor = .systemIndigo
         quizView.quizTitle.text = quiz.title
-        quizView.setImage(imageURL: quiz.image)
+        quizView.quizImage.image = Utils.setImage(imageURL: quiz.image)
         
         leaderboardButton.setTitle("Leaderboard", for: .normal)
         leaderboardButton.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20.0)
@@ -65,11 +67,10 @@ class QuizViewController: UIViewController {
         leaderboardButton.clipsToBounds = true
         
         leaderboardButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(leaderboardButton)
-        
         quizView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(leaderboardButton)
         view.addSubview(quizView)
-
     }
     
     func setupConstraints() {        

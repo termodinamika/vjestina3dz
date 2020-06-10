@@ -14,7 +14,7 @@ class QuizListViewController: UIViewController {
     let quizInfoView = QuizInfoView()
     let dataService = CoreDataService()
     var quizzes: [Quiz] = []
-    var categorizedQuizzes = [Category: [Quiz]](){
+    var categorizedQuizzes = [CategorizedQuizzes](){
         didSet{
             initTableView()
         }
@@ -27,13 +27,14 @@ class QuizListViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // for testing purposes
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         setupUI()
         setupConstraints()
-        quizTableView.delegate = self
         
+        quizTableView.delegate = self
         quizInfoView.getQuizButton.addTarget(self, action: #selector(getQuizClicked), for: .touchUpInside)
     }
     
@@ -41,24 +42,24 @@ class QuizListViewController: UIViewController {
         checkReachability()
         DispatchQueue.main.async {
             if self.quizzes.count == 0 {
-                self.quizInfoView.errorLabel.isHidden = false
+                self.quizInfoView.setErrorLabel(text: "No quizzes found")
                 return
             }
-        var counter = 0
-        for quiz in self.quizzes {
-            let nbaArray = quiz.questions.filter({
-                (value: Question) -> Bool in
-                return value.question.contains("NBA")
-            })
-            counter += nbaArray.count
-            self.quizInfoView.funFactLabel.text = "There are \(counter) questions containing word NBA"
-        }
+            var counter = 0
+            for quiz in self.quizzes {
+                let nbaArray = quiz.questions.filter({
+                    (value: Question) -> Bool in
+                    return value.question.contains("NBA")
+                })
+                counter += nbaArray.count
+                self.quizInfoView.funFactLabel.text = "There are \(counter) questions containing word NBA"
+            }
         }
     }
     
     func checkReachability() {
-        reachability.whenReachable = { reachability in
-            print("it is reachable")
+        reachability.whenReachable = { _ in
+            print("Reachable")
             self.loadData()
             self.fetchFromApi()
         }
@@ -66,6 +67,7 @@ class QuizListViewController: UIViewController {
             print("Not reachable")
             self.loadData()
         }
+        // for testing purposes
         print(reachability.connection.description)
     }
     
@@ -74,21 +76,20 @@ class QuizListViewController: UIViewController {
             guard let quizData = quizData else { return }
             self.quizzes.append(contentsOf: self.dataService.convertQuizData(quizData))
             self.quizzes = self.quizzes.uniqueElements()
-            
             DispatchQueue.main.async { self.quizTableView.reloadData() }
         }
     }
     
     func fetchFromApi(){
         quizService.fetchQuizzes(){
-            (status, quizzes) in
+            (quizResponse) in
             DispatchQueue.main.async {
-                if let quizzes = quizzes {
-                    self.saveNewQuizzes(quizzes.quizzes)
-                    self.quizTableView.reloadData()
-                } else if !status {
-                    self.quizInfoView.setErrorLabel()
+                guard let quizResponse = quizResponse else {
+                    self.quizInfoView.setErrorLabel(text: "Error fetching data!")
+                    return
                 }
+                self.saveNewQuizzes(quizResponse.quizzes)
+                self.quizTableView.reloadData()
             }
         }
     }
@@ -136,12 +137,12 @@ extension QuizListViewController: UITableViewDelegate {
         sectionLabel.textColor = Global.sectionColors[section]
         
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        sectionLabel.text = Global.categorySections[section].rawValue
+        sectionLabel.text = Category.allCases[section].rawValue
         return sectionLabel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let selectedQuiz = categorizedQuizzes[Global.categorySections[indexPath.section]]?[indexPath.row] else { return }
+        let selectedQuiz = categorizedQuizzes[indexPath.section].quizzes[indexPath.row]
         let nextViewController = QuizViewController()
         nextViewController.setQuiz(with: selectedQuiz)
         nextViewController.modalPresentationStyle = .fullScreen

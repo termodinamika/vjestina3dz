@@ -19,12 +19,6 @@ class QuizView: UIView {
         setupConstraints()
     }
     
-    func setImage(imageURL: URL) {
-        guard let imageData = try? Data(contentsOf: imageURL) else { return }
-        let image = UIImage(data: imageData)
-        self.quizImage.image = image
-    }
-    
     func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .lightText

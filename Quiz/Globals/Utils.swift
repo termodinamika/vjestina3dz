@@ -7,16 +7,28 @@
 //
 
 import Foundation
+import UIKit
 
 class Utils {
     
-    static func categorySorting(_ quizzes: [Quiz]) -> [Category: [Quiz]] {
-        var sortedData = [Category: [Quiz]]()
+    static func categorySorting(_ quizzes: [Quiz]) -> [CategorizedQuizzes] {
+        var sortedData = [CategorizedQuizzes]()
         for category in Category.allCases {
-            sortedData[category] = quizzes.filter({ (quiz) in
+            let quizzes = quizzes.filter({ (quiz) in
                 return quiz.category == category
             })
+            if(quizzes.count != 0) {
+                let categoryQuiz = CategorizedQuizzes(category: category, quizzes: quizzes)
+                sortedData.append(categoryQuiz)
+            }
         }
         return sortedData
     }
+    
+    static func setImage(imageURL: URL) -> UIImage {
+        guard let imageData = try? Data(contentsOf: imageURL) else { return UIImage() }
+        let image = UIImage(data: imageData) ?? UIImage()
+        return image
+    }
+
 }

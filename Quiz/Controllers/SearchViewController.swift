@@ -16,13 +16,17 @@ class SearchViewController: UIViewController, SearchDelegate {
     let searchView = SearchView()
     let dataService = CoreDataService()
     var quizzes: [Quiz] = []
-    var categorizedQuizzes = [Category: [Quiz]]() {
+    var categorizedQuizzes = [CategorizedQuizzes]() {
         didSet {
             initTableView()
         }
     }
     var tableViewController: QuizTableView!
     var quizTableView = UITableView()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +41,6 @@ class SearchViewController: UIViewController, SearchDelegate {
         quizTableView.isHidden = false
      }
      
-    
     func onSearchPressed(searchWord: String) {
         dataService.loadQuizzes(with: searchWord, completion: { (quizData) in
             guard let quizData = quizData else {
@@ -79,12 +82,12 @@ extension SearchViewController: UITableViewDelegate {
         sectionLabel.textColor = Global.sectionColors[section]
         
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        sectionLabel.text = Global.categorySections[section].rawValue
+        sectionLabel.text = categorizedQuizzes.count > 0 ? categorizedQuizzes[section].category.rawValue : ""
         return sectionLabel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let selectedQuiz = categorizedQuizzes[Global.categorySections[indexPath.section]]?[indexPath.row] else { return }
+        let selectedQuiz = categorizedQuizzes[indexPath.section].quizzes[indexPath.row]
         let nextViewController = QuizViewController()
         nextViewController.setQuiz(with: selectedQuiz)
         nextViewController.modalPresentationStyle = .fullScreen

@@ -10,38 +10,20 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    var navigationController = UINavigationController()
-    var tabBarViewController = UITabBarController()
+    var tabBarViewController = TabBarController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let winScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: winScene)
-        //ako je korisnik logiran
         if UserDefaults.standard.string(forKey: "userID") != nil {
-            navigationController = UINavigationController(rootViewController: QuizListViewController())
-
-            let quizVc = navigationController
-            let leaderboardVc = SearchViewController()
-            let settingsVc = SettingsViewController()
-            
-            quizVc.tabBarItem = UITabBarItem(title: "Quiz", image:  UIImage(systemName: "stopwatch"), tag: 0)
-            leaderboardVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-            settingsVc.tabBarItem = UITabBarItem(title: "Settings", image:  UIImage(named: "settings"), tag: 2)
-            let tabBarList = [quizVc, leaderboardVc, settingsVc]
-            tabBarViewController.viewControllers = tabBarList
             window?.rootViewController = tabBarViewController
         } else {
-            navigationController = UINavigationController(rootViewController: LoginViewController())
-            window?.rootViewController = navigationController
+            window?.rootViewController = LoginViewController()
         }
         window?.makeKeyAndVisible()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
     
     func sceneDidBecomeActive(_ scene: UIScene) {

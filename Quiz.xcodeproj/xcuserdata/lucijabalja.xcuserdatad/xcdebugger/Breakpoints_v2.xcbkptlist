@@ -311,8 +311,8 @@
             filePath = "Quiz/Controllers/QuizListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "QuizListViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -327,8 +327,8 @@
             filePath = "Quiz/Controllers/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "LoginViewController"
             landmarkType = "3">
          </BreakpointContent>

@@ -10,6 +10,12 @@ import Foundation
 
 struct LoginResponse: Decodable {
     let token: String
-    let user_id: Int
+    let userID: Int
     let errors = ""
+    
+    enum CodingKeys: String, CodingKey {
+        case token
+        case userID = "user_id"
+        case errors
+    }
 }

@@ -12,24 +12,14 @@ struct QuizResponse: Decodable {
     var quizzes: [Quiz]
 }
 
-class Quiz: Decodable, Equatable, Hashable {
-    var category: Category
+struct Quiz: Decodable, Equatable, Hashable {
     var id: Int
-    var title: String
+    var category: Category
     var description: String
-    var level: Int
     var image: URL
+    var level: Int
+    var title: String
     var questions: [Question]
-    
-    init(id: Int,title: String,description: String,level: Int,image: URL,questions: [Question],category: Category) {
-        self.category = category
-        self.id = id
-        self.description = description
-        self.title = title
-        self.level = level
-        self.image = image
-        self.questions = questions
-    }
     
     static func == (lhs: Quiz, rhs: Quiz) -> Bool {
         return lhs.id == rhs.id
@@ -41,18 +31,23 @@ class Quiz: Decodable, Equatable, Hashable {
     }
 }
 
-class Question: Decodable {
+struct Question: Decodable {
     var id: Int
     var question: String
     var answers: [String]
-    var correct_answer:  Int
-    
-    init(id: Int,question: String,answers: [String],correct_answer:  Int) {
-        self.id = id
-        self.question = question
-        self.answers = answers
-        self.correct_answer = correct_answer
+    var correctAnswer:  Int
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case question
+        case answers
+        case correctAnswer = "correct_answer"
     }
+}
+
+struct CategorizedQuizzes {
+    var category: Category
+    var quizzes: [Quiz]
 }
 
 enum Category: String, Decodable, CaseIterable {
@@ -60,16 +55,16 @@ enum Category: String, Decodable, CaseIterable {
 }
 
 extension Array where Element: Equatable {
-  func uniqueElements() -> [Element] {
-    var out = [Element]()
-
-    for element in self {
-      if !out.contains(element) {
-        out.append(element)
-      }
+    func uniqueElements() -> [Element] {
+        var out = [Element]()
+        
+        for element in self {
+            if !out.contains(element) {
+                out.append(element)
+            }
+        }
+        return out
     }
-    return out
-  }
 }
 
 extension Array where Element: Hashable {

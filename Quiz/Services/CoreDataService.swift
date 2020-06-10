@@ -11,7 +11,6 @@ import UIKit
 import CoreData
 
 class CoreDataService {
-    
     let context = ((UIApplication).shared.delegate as! AppDelegate).persistentContainer.viewContext
     var quizData: [QuizData] = []
     
@@ -27,7 +26,7 @@ class CoreDataService {
         for question in quiz.questions {
             let questionData = QuestionData(context: context)
             questionData.id = Int16(question.id)
-            questionData.correctAnswer = Int16(question.correct_answer)
+            questionData.correctAnswer = Int16(question.correctAnswer)
             questionData.question = question.question
             questionData.answers = question.answers
             questionData.parentQuiz = data
@@ -35,7 +34,6 @@ class CoreDataService {
         }
         quizData.append(data)
         saveQuizzes()
-       // checkIfEntityExists(with: data.id)
     }
     
     func saveQuizzes(){
@@ -56,11 +54,7 @@ class CoreDataService {
  
         do {
             quizData = try context.fetch(request)
-            if(quizData.count != 0) {
-                completion(quizData)
-            } else {
-                completion(nil)
-            }
+            quizData.count != 0 ? completion(quizData) : completion(nil)
         } catch {
             completion(nil)
             print("Error fetching data via search bar, \(error)")
@@ -72,10 +66,16 @@ class CoreDataService {
         for quizEntity in quizData {
             var questions: [Question] = []
             for questionEntity in quizEntity.quizQuestions?.allObjects as! [QuestionData] {
-                let question = Question(id: Int(questionEntity.id), question: questionEntity.question ?? "Default question", answers: questionEntity.answers ?? [], correct_answer:  Int(questionEntity.correctAnswer))
+                let questionText = questionEntity.question ?? "Default question"
+                let answers = questionEntity.answers ?? []
+                let question = Question(id: Int(questionEntity.id),question: questionText, answers: answers, correctAnswer: Int(questionEntity.correctAnswer))
                 questions.append(question)
             }
-            let quiz = Quiz(id: Int(quizEntity.id),title: quizEntity.title ?? "default title",description: quizEntity.quizDescription ?? "default description",level: Int(quizEntity.level),image: quizEntity.image!, questions: questions, category: Category(rawValue: quizEntity.category ?? "SPORTS") ?? Category.SPORTS)
+            let title = quizEntity.title ?? "default title"
+            let category = Category(rawValue: quizEntity.category ?? "SPORTS") ?? Category.SPORTS
+            let description = quizEntity.quizDescription ?? "default description"
+            let image  = quizEntity.image!
+            let quiz = Quiz(id: Int(quizEntity.id), category: category, description: description, image: image, level: Int(quizEntity.level), title: title, questions: questions)
             convertedQuizzes.append(quiz)
         }
         return convertedQuizzes

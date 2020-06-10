@@ -25,9 +25,9 @@ class QuizInfoView: UIView {
         funFactLabel.text = String("There are \(counter) questions with NBA")
     }
     
-    func setErrorLabel() {
+    func setErrorLabel(text: String) {
         errorLabel.isHidden = false
-        errorLabel.text = "Error fetching data!"
+        errorLabel.text = text
     }
     
     private func setupUI() {

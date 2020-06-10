@@ -75,10 +75,10 @@ class QuestionViewController: UIViewController, AnswerCheckerDelegate {
             quizService.sendResults(noCorrectAnswers: noCorrectAnswers, timeTaken: timeTaken, quizId: quiz.id) { (result) in
                 DispatchQueue.main.async {
                     if result == ServerResponse.SUCCESS.rawValue {
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
                     } else {
                         print("Sending quiz data not successfull :( ")
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
                 }
             }
