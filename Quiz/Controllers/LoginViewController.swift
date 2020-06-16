@@ -24,9 +24,33 @@ class LoginViewController: UIViewController, LoginDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         loginView.loginDelegate = self
-        
         setupUI()
         setupConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 1, delay: 0.0, animations: {
+            self.loginView.appLabel.alpha = 1.1
+            self.loginView.appLabel.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+        }) { _ in
+        }
+        UIView.animate(withDuration: 1, delay: 0.1, options: UIView.AnimationOptions.curveLinear, animations: {
+            self.loginView.usernameTextField.alpha = 1.1
+            self.loginView.usernameTextField.center = CGPoint(x: 200, y: 200)
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1, delay: 0.2, options: UIView.AnimationOptions.curveLinear, animations: {
+            self.loginView.passwordTextField.alpha = 1.1
+            self.loginView.passwordTextField.center = CGPoint(x: 200, y: 270)
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1, delay: 0.3, options: UIView.AnimationOptions.curveLinear, animations: {
+            self.loginView.loginButton.alpha = 1.1
+            self.loginView.loginButton.center = CGPoint(x: 200, y: 340)
+        }, completion: nil)
+        
     }
     
     func onLoginPressed(username: String, password: String) {
@@ -51,6 +75,9 @@ class LoginViewController: UIViewController, LoginDelegate {
         view.backgroundColor = .systemGray2
         loginView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginView)
+        loginView.appLabel.alpha = 0.0
+        loginView.usernameTextField.alpha = 0.0
+        loginView.passwordTextField.alpha = 0.0
     }
     
     func setupConstraints() {

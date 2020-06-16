@@ -27,7 +27,7 @@ class LoginView: UIView {
     func setupEvents() {
         loginButton.addTarget(self, action: #selector(onLoginPressed), for: .touchUpInside)
     }
-
+    
     @objc func onLoginPressed() {
         guard let username = usernameTextField.text, let password = passwordTextField.text else {
             setErrorLabel(text: "Enter valid username and password!")
@@ -46,14 +46,14 @@ class LoginView: UIView {
     private func setupUI() {
         backgroundColor = .systemIndigo
         
-        Setup.setLabel(appLabel, size: 32.0, text: "Pop Quiz")
+        Setup.setLabel(appLabel, size: 16.0, text: "Pop Quiz")
         Setup.setTextField(usernameTextField, size: 17.0, isBold: false, placeholder: "Enter username" )
         usernameTextField.text = "36495264"
-
+        
         Setup.setTextField(passwordTextField, size: 17.0, isBold: false, placeholder: "Enter password")
         passwordTextField.isSecureTextEntry = true
         passwordTextField.text =  "36495264"
-
+        
         Setup.setButton(loginButton, title: "Login")
         Setup.setLabel(errorLabel)
         errorLabel.backgroundColor = .white
@@ -73,20 +73,20 @@ class LoginView: UIView {
         appLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
         appLabel.topAnchor.constraint(equalTo:self.topAnchor, constant:60).isActive = true
         
-        usernameTextField.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-        usernameTextField.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        usernameTextField.leftAnchor.constraint(equalTo:self.leftAnchor, constant:-400).isActive = true
         usernameTextField.heightAnchor.constraint(equalToConstant:50).isActive = true
         usernameTextField.topAnchor.constraint(equalTo:appLabel.bottomAnchor, constant:60).isActive = true
-             
+        usernameTextField.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -40).isActive = true
+        
         passwordTextField.topAnchor.constraint(equalTo:usernameTextField.bottomAnchor, constant: 20).isActive = true
-        passwordTextField.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-        passwordTextField.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        passwordTextField.leftAnchor.constraint(equalTo:self.leftAnchor, constant:-400).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant:50).isActive = true
-
+        passwordTextField.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -40).isActive = true
+        
         loginButton.topAnchor.constraint(equalTo:passwordTextField.bottomAnchor, constant: 20).isActive = true
-        loginButton.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
-        loginButton.rightAnchor.constraint(equalTo:self.rightAnchor, constant:-20).isActive = true
+        loginButton.leftAnchor.constraint(equalTo:self.leftAnchor, constant: -400).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant:50).isActive = true
+        loginButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -40).isActive = true
         
         errorLabel.topAnchor.constraint(equalTo:loginButton.bottomAnchor, constant: 20).isActive = true
         errorLabel.leftAnchor.constraint(equalTo:self.leftAnchor, constant:20).isActive = true
