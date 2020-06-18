@@ -10,18 +10,13 @@ import UIKit
 
 class QuizViewController: UIViewController {
     var quiz: Quiz?
-    let leaderboardButton = UIButton(type: .system)
     let quizView = QuizView()
     var nextQuestion = 0
     var noCorrectAnswers = 0
     var quizStartedAt: TimeInterval!
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.backItem?.title = ""
-        self.navigationController?.navigationBar.topItem?.title = "PopQuiz"
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.isTranslucent = false
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewDidLoad() {
@@ -53,9 +48,14 @@ class QuizViewController: UIViewController {
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
+    @objc func backButtonPressed(_ sender: UIButton){
+        navigationController?.popViewController(animated: true)
+    }
+    
     func setupEvents() {
+        quizView.backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         quizView.startButton.addTarget(self, action: #selector(startPressed), for: .touchUpInside)
-        leaderboardButton.addTarget(self, action: #selector(leaderboardPressed), for: .touchUpInside)
+        quizView.leaderboardButton.addTarget(self, action: #selector(leaderboardPressed), for: .touchUpInside)
     }
     
     func setupQuizUI() {
@@ -63,25 +63,16 @@ class QuizViewController: UIViewController {
         view.backgroundColor = .systemIndigo
         quizView.quizTitle.text = quiz.title
         quizView.quizImage.image = Utils.setImage(imageURL: quiz.image)
-        
-        Setup.setButton(leaderboardButton, title: "Leaderboard")
-        leaderboardButton.tintColor = .white
-        leaderboardButton.backgroundColor = .systemIndigo
-        
+        quizView.quizDescription.text = quiz.description
         quizView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(leaderboardButton)
         view.addSubview(quizView)
     }
     
-    func setupConstraints() {        
-        leaderboardButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        leaderboardButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        leaderboardButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        
-        quizView.topAnchor.constraint(equalTo: leaderboardButton.bottomAnchor, constant: 20).isActive = true
+    func setupConstraints() {
+        quizView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         quizView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        quizView.heightAnchor.constraint(equalToConstant: view.frame.height/2.5).isActive = true
+        quizView.heightAnchor.constraint(equalToConstant: view.frame.height).isActive = true
         quizView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
     }
 }

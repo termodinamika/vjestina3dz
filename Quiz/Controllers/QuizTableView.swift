@@ -32,6 +32,7 @@ class QuizTableView: NSObject, UITableViewDataSource {
         let currentQuiz = tableViewData[indexPath.section].quizzes[indexPath.row]
         cell.quizTitle.text = currentQuiz.title
         cell.quizImage.image = Utils.setImage(imageURL: currentQuiz.image)
+        cell.quizImage.layer.cornerRadius = 10
         cell.quizDescription.text = currentQuiz.description
         cell.setLevelImage(level: currentQuiz.level, color: Global.sectionColors[indexPath.section])
         return cell

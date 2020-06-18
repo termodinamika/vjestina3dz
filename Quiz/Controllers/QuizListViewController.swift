@@ -125,9 +125,9 @@ class QuizListViewController: UIViewController {
         quizInfoView.heightAnchor.constraint(equalToConstant: view.frame.height/3).isActive = true
         
         quizTableView.topAnchor.constraint(equalTo: quizInfoView.bottomAnchor).isActive = true
-        quizTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        quizTableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         quizTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        quizTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        quizTableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
     }
 }
 
@@ -138,6 +138,7 @@ extension QuizListViewController: UITableViewDelegate {
         
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         sectionLabel.text = Category.allCases[section].rawValue
+        sectionLabel.backgroundColor = .systemIndigo
         return sectionLabel
     }
     

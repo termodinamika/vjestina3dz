@@ -21,11 +21,10 @@ class SettingsView: UIView {
      
     func setupUI() {
         backgroundColor = .systemIndigo
-        let username = UserDefaults.standard.string(forKey: "username") ?? "default-username"
 
         Setup.setLabel(usernameTitle, text: "USERNAME")
-        Setup.setLabel(usernameLabel, text: username)
-        Setup.setButton(logoutButton, isBold: false, title: "Log out")
+        Setup.setLabel(usernameLabel, text: "")
+        Setup.setButton(logoutButton, isBold: true, title: "Log out")
 
         usernameTitle.textAlignment = .left
         usernameLabel.textAlignment = .left

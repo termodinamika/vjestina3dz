@@ -45,18 +45,19 @@ class QuestionView: UIView {
         if question.correctAnswer == sender.tag {
             isCorrect = true
         }
+        let color: UIColor = isCorrect ? .systemGreen : .systemRed
         switch sender.tag {
         case 0:
-            answer1.backgroundColor = isCorrect ? .green : .red
+            answer1.backgroundColor = color
             fireTimer(button: answer1)
         case 1:
-            answer2.backgroundColor = isCorrect ? .green : .red
+            answer2.backgroundColor = color
             fireTimer(button: answer2)
         case 2:
-            answer3.backgroundColor = isCorrect ? .green : .red
+            answer3.backgroundColor = color
             fireTimer(button: answer3)
         case 3:
-            answer4.backgroundColor = isCorrect ? .green : .red
+            answer4.backgroundColor = color
             fireTimer(button: answer4)
         default:
             print("Wrong index is given.")

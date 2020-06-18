@@ -22,7 +22,7 @@ class QuestionViewController: UIViewController, AnswerCheckerDelegate {
     let stackView = UIStackView()
     var appLabel = UILabel()
     var quiz: Quiz! {
-        didSet{
+        didSet {
             setQuestionsToScrollView()
         }
     }
@@ -88,7 +88,7 @@ class QuestionViewController: UIViewController, AnswerCheckerDelegate {
     private func setupUI() {
         view.backgroundColor = .systemIndigo
         Setup.setLabel(appLabel, size: 32.0, text: "PopQuiz")
-
+        
         scrollView.addSubview(self.stackView)
         view.addSubview(scrollView)
         view.addSubview(appLabel)
@@ -106,9 +106,9 @@ class QuestionViewController: UIViewController, AnswerCheckerDelegate {
     
     func setupConstraints() {
         appLabel.topAnchor.constraint(equalTo:view.topAnchor, constant: 40).isActive = true
-        appLabel.leftAnchor.constraint(equalTo:view.leftAnchor, constant:20).isActive = true
-        appLabel.rightAnchor.constraint(equalTo:view.rightAnchor, constant:-20).isActive = true
-        appLabel.heightAnchor.constraint(equalToConstant:50).isActive = true
+        appLabel.leftAnchor.constraint(equalTo:view.leftAnchor, constant: 20).isActive = true
+        appLabel.rightAnchor.constraint(equalTo:view.rightAnchor, constant: -20).isActive = true
+        appLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         scrollView.topAnchor.constraint(equalTo: self.appLabel.bottomAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: -10).isActive = true

@@ -9,17 +9,35 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    var window: UIWindow?
+    
+    init(with window: UIWindow) {
+        super.init(nibName: nil, bundle: nil)
+        self.window = window
+        setTabBar()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func setTabBar() {
         let quizVc = QuizListViewController()
-        let leaderboardVc = SearchViewController()
-        let settingsVc = SettingsViewController()
+        let searchVc = SearchViewController()
+        guard let win = self.window else { return }
+        let settingsVc = SettingsViewController(with: win)
         
         quizVc.tabBarItem = UITabBarItem(title: "Quiz", image:  UIImage(systemName: "stopwatch"), tag: 0)
-        leaderboardVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        searchVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         settingsVc.tabBarItem = UITabBarItem(title: "Settings", image:  UIImage(named: "settings"), tag: 2)
-        let tabBarList = [quizVc, leaderboardVc, settingsVc]
-        viewControllers = tabBarList.map { UINavigationController(rootViewController: $0)}
+        let quizNavigationController = UINavigationController(rootViewController: quizVc)
+        let searchNavigationController = UINavigationController(rootViewController: searchVc)
+        
+        self.viewControllers = [quizNavigationController, searchNavigationController, settingsVc]
+        self.selectedViewController = quizNavigationController
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

@@ -70,9 +70,9 @@ class SearchViewController: UIViewController, SearchDelegate {
         searchView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         quizTableView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 30).isActive = true
-        quizTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        quizTableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         quizTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        quizTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        quizTableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
     }
 }
 
@@ -80,7 +80,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionLabel = UILabel()
         sectionLabel.textColor = Global.sectionColors[section]
-        
+        sectionLabel.backgroundColor = .systemIndigo
         sectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         sectionLabel.text = categorizedQuizzes.count > 0 ? categorizedQuizzes[section].category.rawValue : ""
         return sectionLabel

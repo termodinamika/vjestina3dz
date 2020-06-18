@@ -14,13 +14,6 @@ struct ResultData: Decodable, Encodable {
     var time: Double
     var noOfCorrect: Int
     
-    init(quizID: Int, userID: Int, time: Double, noOfCorrect: Int) {
-        self.quizID = quizID
-        self.userID = userID
-        self.time = time
-        self.noOfCorrect = noOfCorrect
-    }
-    
     enum CodingKeys: String, CodingKey {
          case quizID = "quiz_id"
          case userID = "user_id"

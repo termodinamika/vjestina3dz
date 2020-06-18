@@ -10,15 +10,16 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    var tabBarViewController = TabBarController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let winScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: winScene)
+        guard let safeWindow = window else { return }
+        let tabBarViewController = TabBarController(with: safeWindow)
         if UserDefaults.standard.string(forKey: "userID") != nil {
             window?.rootViewController = tabBarViewController
         } else {
-            window?.rootViewController = LoginViewController()
+            window?.rootViewController = LoginViewController(with: safeWindow)
         }
         window?.makeKeyAndVisible()
     }

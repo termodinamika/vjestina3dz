@@ -10,13 +10,15 @@ import Foundation
 
 class DataService {
     
+    static let keys = ["userID", "token", "username"]
+    
     static func saveUserParams(username: String, token: String, userID: Int) {
-        UserDefaults.standard.set(token, forKey: "userToken")
+        UserDefaults.standard.set(token, forKey: "token")
         UserDefaults.standard.set(userID, forKey: "userID")
         UserDefaults.standard.set(username, forKey: "username")
     }
     
-    static func removeUserParams(for keys: [String]){
+    static func removeUserParams(){
         for key in keys {
             UserDefaults.standard.removeObject(forKey: key)
         }
