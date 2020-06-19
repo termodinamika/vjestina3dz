@@ -40,21 +40,6 @@ class QuizListViewController: UIViewController {
     
     @objc func getQuizClicked(_ sender: UIButton) {
         checkReachability()
-        DispatchQueue.main.async {
-            if self.quizzes.count == 0 {
-                self.quizInfoView.setErrorLabel(text: "No quizzes found")
-                return
-            }
-            var counter = 0
-            for quiz in self.quizzes {
-                let nbaArray = quiz.questions.filter({
-                    (value: Question) -> Bool in
-                    return value.question.contains("NBA")
-                })
-                counter += nbaArray.count
-                self.quizInfoView.funFactLabel.text = "There are \(counter) questions containing word NBA"
-            }
-        }
     }
     
     func checkReachability() {
@@ -76,7 +61,29 @@ class QuizListViewController: UIViewController {
             guard let quizData = quizData else { return }
             self.quizzes.append(contentsOf: self.dataService.convertQuizData(quizData))
             self.quizzes = self.quizzes.uniqueElements()
-            DispatchQueue.main.async { self.quizTableView.reloadData() }
+            self.categorizedQuizzes = Utils.categorySorting(self.quizzes)
+            DispatchQueue.main.async {
+                if self.quizzes.count == 0 {
+                    self.quizInfoView.setErrorLabel(text: "No quizzes found")
+                    return
+                }
+                self.calculateFunFact()
+                self.quizTableView.reloadData()
+            }
+        }
+    }
+    
+    func calculateFunFact() {
+        var counter = 0
+        for quiz in quizzes {
+            let nbaArray = quiz.questions.filter({
+                (value: Question) -> Bool in
+                return value.question.contains("NBA")
+            })
+            counter += nbaArray.count
+        }
+        DispatchQueue.main.async {
+            self.quizInfoView.funFactLabel.text = "There are \(counter) questions containing word NBA"
         }
     }
     
@@ -89,6 +96,7 @@ class QuizListViewController: UIViewController {
                     return
                 }
                 self.saveNewQuizzes(quizResponse.quizzes)
+                self.calculateFunFact()
                 self.quizTableView.reloadData()
             }
         }

@@ -24,8 +24,8 @@ class TabBarController: UITabBarController {
     func setTabBar() {
         let quizVc = QuizListViewController()
         let searchVc = SearchViewController()
-        guard let win = self.window else { return }
-        let settingsVc = SettingsViewController(with: win)
+        guard let safeWindow = self.window else { return }
+        let settingsVc = SettingsViewController(with: safeWindow)
         
         quizVc.tabBarItem = UITabBarItem(title: "Quiz", image:  UIImage(systemName: "stopwatch"), tag: 0)
         searchVc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)

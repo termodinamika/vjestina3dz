@@ -33,9 +33,8 @@ class Utils {
     
     static func underlineText(button: UIButton, text: String) {
         let attributedString = NSMutableAttributedString.init(string: text)
-        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 2, range:
-            NSRange.init(location: 0, length: attributedString.length));
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 2,
+                                      range: NSRange.init(location: 0, length: attributedString.length));
         button.setAttributedTitle(attributedString, for: .normal)
     }
-    
 }
